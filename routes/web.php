@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,20 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-  return view('posts');
+  $posts = Post::all();
+
+  ddd($posts);
+  
+  return view('posts', [
+    'posts' => Post::all()
+  ]);
 });
 
 Route::get("posts/{post}", function ($slug) {
-  // make sure the requested file exists
-  if (! file_exists($path = __DIR__ . "/../resources/posts/{$slug}.html")) {
-    return redirect('/');
-  }
-
-  // cache that file
-  $post = cache()->remember("posts.${slug}", now()->addDay(), fn() => file_get_contents($path));
-  
-  // return a view from the file above
-  return view('post', ['post' => $post]);
-
-// only follow this route if it matches the RegEx
+  return view('post', [
+    'post' => Post::find($slug)
+  ]);
 })->where('post', '[A-z_\-]+');
