@@ -12,9 +12,17 @@
 </head>
 <body>
     <article>
-        <h1><?= $post->title; ?></h1>
-        <h6>Published on <?= gmdate("Y-m-d", $post->date); ?></h6>
-        <div><?= $post->body; ?></div>
+        <h1>
+            <?= $post->title; ?>
+        </h1>
+        <h6>
+            Published on <?= gmdate("Y-m-d", $post->date); ?>
+        </h6>
+
+        <div>
+            <?= $post->body; ?>
+            {!! $post->body !!}
+        </div>
     </article>
 
     <a href="/">Go Back</a>

@@ -28,18 +28,35 @@ class Post
   }
   public static function all()
   {
-    return cache()->rememberForever('posts.all', function() {
-      return collect(File::files(resource_path("posts")))
-      ->map(fn($file) => YamlFrontMatter::parseFile($file))
-      ->map(fn($document) => new Post(
-        $document->title,
-        $document->excerpt,
-        $document->date,
-        $document->body(),
-        $document->slug,
-      ))
-      ->sortByDesc('date');
-    });
+    // probably best to not be caching while making edits to the corresponding view, right?
+
+    // return cache()->rememberForever('posts.all', function() {
+    //   return collect(File::files(resource_path("posts")))
+    //   ->map(fn($file) => YamlFrontMatter::parseFile($file))
+    //   ->map(fn($document) => new Post(
+    //     $document->title,
+    //     $document->excerpt,
+    //     $document->date,
+    //     $document->body(),
+    //     $document->slug,
+    //   ))
+    //   ->sortByDesc('date');
+    // });
+
+    // so keep this during dev, consider toggling cache later
+    return collect(File::files(resource_path("posts")))
+    ->map(fn($file) => YamlFrontMatter::parseFile($file))
+    ->map(fn($document) => new Post(
+      $document->title,
+      $document->excerpt,
+      $document->date,
+      $document->body(),
+      $document->slug,
+    ))
+    ->sortByDesc('date');
+
+
+
   }
 
   public static function find($slug)
