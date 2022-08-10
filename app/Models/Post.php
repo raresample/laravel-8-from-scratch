@@ -41,13 +41,7 @@ class Post
 
   public static function find($slug)
   {
-    // make sure the requested file exists
-    if (! file_exists($path = resource_path("posts/{$slug}.html"))) {
-      return redirect('/');
-      throw new ModelNotFoundException();
-    }
-
-    // cache that file
-    return cache()->remember("posts.${slug}", now()->addDay(), fn() => file_get_contents($path));
+    // find the blog post whose slug matches the request
+    return static::all()->firstWhere('slug', $slug);
   }
 }
