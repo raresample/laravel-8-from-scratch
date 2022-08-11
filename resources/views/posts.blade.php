@@ -1,6 +1,4 @@
-@extends ('layout')
-
-@section('content')
+<x-layout>
   @foreach ($posts as $post)
     <article class="{{ $loop->even ? 'mt-6' : ''}}">
       <h1>
@@ -12,4 +10,4 @@
       <div>{{ $post->excerpt }}</div>
     </article>
   @endforeach
-@endsection
+</x-layout>
