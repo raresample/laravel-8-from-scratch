@@ -54,14 +54,23 @@ class Post
       $document->slug,
     ))
     ->sortByDesc('date');
-
-
-
   }
 
   public static function find($slug)
   {
     // find the blog post whose slug matches the request
     return static::all()->firstWhere('slug', $slug);
+  }
+
+  public static function findOrFail($slug)
+  {
+    // find the blog post whose slug matches the request
+    $post = static::find($slug);
+
+    if (!$post) {
+      throw new ModelNotFoundException();
+    }
+
+    return $post;
   }
 }
