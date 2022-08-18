@@ -13,14 +13,16 @@
 <body>
     <article>
         <h1>
-            <?= $post->title; ?>
+            <!-- <?= $post->title; ?> -->
+            {{ $post->title }} 
+            <!-- {!! $post->title !!} -->
         </h1>
         <h6>
             Published on <?= gmdate("Y-m-d", $post->date); ?>
         </h6>
 
         <div>
-            <?= $post->body; ?>
+            <!-- <?= $post->body; ?> -->
             {!! $post->body !!}
         </div>
     </article>
