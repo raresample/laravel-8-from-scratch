@@ -21,39 +21,12 @@ class DatabaseSeeder extends Seeder
     Category::truncate();
     Post::truncate();
 
-    $user = User::factory()->create();
-
-    $personal = Category::create([
-      'name' => 'Personal',
-      'slug' => 'personal'
+    $user = User::factory()->create([
+      'name' => 'John Doe'
     ]);
 
-    $family = Category::create([
-      'name' => 'Family',
-      'slug' => 'family'
-    ]);
-
-    $work = Category::create([
-      'name' => 'Work',
-      'slug' => 'work'
-    ]);
-
-    Post::create([
-      'user_id' => $user->id,
-      'category_id' => $family->id,
-      'title' => 'My Family Post',
-      'slug' => 'my-first-post',
-      'excerpt' => '<p>Lorem ipsum dolar sit amet.</p>',
-      'body' => '<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto aliquid assumenda omnis molestias quia numquam perferendis debitis tempore ab totam maiores dolore, quasi ipsa at porro consequatur rem error id!</p>'
-    ]);
-
-    Post::create([
-      'user_id' => $user->id,
-      'category_id' => $work->id,
-      'title' => 'My Work Post',
-      'slug' => 'my-second-post',
-      'excerpt' => '<p>Lorem ipsum dolar sit amet.</p>',
-      'body' => '<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto aliquid assumenda omnis molestias quia numquam perferendis debitis tempore ab totam maiores dolore, quasi ipsa at porro consequatur rem error id!</p>'
+    Post::factory(5)->create([
+      'user_id' => $user->id
     ]);
 
     // \App\Models\User::factory()->create([
