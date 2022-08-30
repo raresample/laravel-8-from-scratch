@@ -20,6 +20,18 @@ class Post extends Model
         where('title', 'like', '%' . $search . '%')
         ->orWhere('body', 'like', '%' . $search . '%');
     });
+    // seems like you have to use fn() => syntax for this to work ???
+    // $query->when($filters['category'] ?? false, function($query, $category) {
+    //   $query
+    //     ->whereExists(function($query) {
+    //       $query->from('categories')
+    //         ->where('categories.id', 'posts.category_id')
+    //         ->where('categories.slug', $category);
+    //     });
+    // });
+    $query->when($filters['category'] ?? false, fn($query, $category) =>
+      $query->whereHas('category', fn ($query) => 
+        $query->where('slug', $category)));
   }
 
   public function category()
