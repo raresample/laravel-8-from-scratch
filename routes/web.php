@@ -22,8 +22,9 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get("posts/{post:slug}", [PostController::class, 'show']);
 
+// This creates links for the category chips, whereas the dropdown is now filtered via Eloquent Query
 Route::get("/categories/{category:slug}", function (Category $category) {
-  return view('posts', [
+  return view('posts.index', [
     'posts' => $category->posts,
     'currentCategory' => $category,
     'categories' => Category::all()
@@ -31,8 +32,7 @@ Route::get("/categories/{category:slug}", function (Category $category) {
 })->name('category');
 
 Route::get("/authors/{author:username}", function (User $author) {
-  return view('posts', [
-    'posts' => $author->posts,
-    'categories' => Category::all()
+  return view('posts.index', [
+    'posts' => $author->posts
   ]);
 });
