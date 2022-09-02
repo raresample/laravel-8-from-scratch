@@ -15,11 +15,12 @@ class Post extends Model
 
   public function scopeFilter($query, array $filters) // Post::newQuery()->filter()
   {
-    $query->when($filters['search'] ?? false, function($query, $search) {
-      $query->
-        where('title', 'like', '%' . $search . '%')
-        ->orWhere('body', 'like', '%' . $search . '%');
-    });
+    $query->when($filters['search'] ?? false, fn($query, $search) =>
+      $query->where(fn($query) =>
+        $query->where('title', 'like', '%' . $search . '%')
+        ->orWhere('body', 'like', '%' . $search . '%')
+      )
+    );
     // seems like you have to use fn() => syntax for this to work ???
     // $query->when($filters['category'] ?? false, function($query, $category) {
     //   $query
