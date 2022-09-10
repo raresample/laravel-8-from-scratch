@@ -16,8 +16,18 @@
         </a>
       </div>
 
-      <div class="mt-8 md:mt-0">
-        <a href="/" class="text-xs font-bold uppercase">Home Page</a>
+      <div class="mt-8 md:mt-0 flex items-center">
+        @auth
+          <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}!</span>
+
+          <form action="/logout" method="POST">
+            @csrf
+            <button type="submit" class="text-xs font-semibold text-blue-500 ml-6">Log Out</button>
+          </form>
+        @else
+          <a href="/register" class="text-xs font-bold uppercase">Register</a>
+          <a href="/login" class="text-xs font-bold uppercase ml-3 mr-6">Log In</a>
+        @endguest
 
         <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
           Subscribe for Updates
@@ -41,8 +51,12 @@
                 <img src="/images/mailbox-icon.svg" alt="mailbox letter">
               </label>
 
-              <input id="email" type="text" placeholder="Your email address"
-                   class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none">
+              <input 
+                id="email" 
+                type="text" 
+                placeholder="Your email address"
+                class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none"
+              >
             </div>
 
             <button type="submit"
